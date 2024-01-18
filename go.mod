@@ -1,3 +1,3 @@
-module github.com/eurozulu/argflag
+module github.com/eurozulu/argflags
 
 go 1.20
