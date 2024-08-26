@@ -42,11 +42,11 @@ func (args ArgFlags) FlagNames() []string {
 
 // ApplyTo applies the argument flags to the given struct pointer.
 // str must be a pointer to a struct.
-// ColumnNames in the struct are matched to the named flags either directly to the field name or
+// Field names in the struct are matched to the named flags either directly to the field name or
 // with a tag of 'flags:"one,two,three"'.  Any tag name can match to a flag.
-// ColumnNames should be base types, string, ints, floats, bools etc or slices of those.
+// Fields should be base types, string, ints, floats, bools etc or slices of those.
 // If a field contains an object supporting the TextUnmarshaler the argument value is passed to that interface.
-// Named flags should always have a following argument for the value of the flag, with the exception of bool flags.
+// in the given arguments, named flags should always have a following argument for the value of the flag, except bool flags.
 // Bool flags are defined by the Field in the strurct and can have optional values.
 // Bool flags default to true
 // If a bool flag has a value following it, it is tested to be a bool value (true or false), if not those, its ignored
@@ -89,7 +89,7 @@ func findFlagValue(args []string, fldType reflect.Type) (value string, remain []
 	if len(args) > 0 && !strings.HasPrefix(args[0], "-") {
 		value = args[0]
 	}
-	// bool ColumnNames have optional value.  only used if parsable as bool, otherwise defaults to true and ignores next arg
+	// bool flags have optional value.  only used if parsable as bool, otherwise defaults to true and ignores next arg
 	if fldType.Kind() == reflect.Bool {
 		// test if its parsable as bool
 		_, err := strconv.ParseBool(value)
